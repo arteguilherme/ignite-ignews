@@ -10,9 +10,9 @@ interface SubscribeButtonProps {
 export default function SubscribeButton({
   priceId,
 }: SubscribeButtonProps) {
-  async function handleSubscribe() {
-    const { data: session } = useSession();
+  const { data: session } = useSession();
 
+  async function handleSubscribe() {
     if (!session) {
       signIn('github');
       return;
@@ -24,9 +24,9 @@ export default function SubscribeButton({
       const { sessionId } = response.data;
       const stripe = await getStripeJs();
 
-      await stripe.redirectToCheckout({ sessionId });
+      await stripe.redirectToCheckout({ sessionId: sessionId });
     } catch (error) {
-      return error.message;
+      alert(error.message);
     }
   }
 
