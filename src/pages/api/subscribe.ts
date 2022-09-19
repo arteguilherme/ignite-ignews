@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       allow_promotion_codes: true
     });
 
-    return res.status(200).json({ sessionId: stripeCustomer.id });
+    return res.status(200).json({ sessionId: stripeCheckoutSession.id });
   } else {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method not allowed')

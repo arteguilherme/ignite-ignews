@@ -22,10 +22,13 @@ export default function SubscribeButton({
       const response = await api.post('/subscribe');
 
       const { sessionId } = response.data;
+
       const stripe = await getStripeJs();
 
       await stripe.redirectToCheckout({ sessionId: sessionId });
     } catch (error) {
+      console.log(error);
+
       alert(error.message);
     }
   }
