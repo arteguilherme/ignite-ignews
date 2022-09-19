@@ -20,7 +20,6 @@ export default function SubscribeButton({
 
     try {
       const response = await api.post('/subscribe');
-      console.log(response);
 
       const { sessionId } = response.data;
       const stripe = await getStripeJs();

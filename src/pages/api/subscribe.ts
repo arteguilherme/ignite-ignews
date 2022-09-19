@@ -13,8 +13,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
       customer: stripeCustomer.id,
-      success_url: `${process.env.NEXTAUTH_URL}/posts`,
-      cancel_url: process.env.NEXTAUTH_URL,
+      success_url: `${process.env.BASE_URL}/posts`,
+      cancel_url: process.env.BASE_URL,
       line_items: [
         {price: 'price_1KX9J3EfJnDzwDuQak7s6aB0', quantity: 1},
       ],
