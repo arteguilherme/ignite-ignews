@@ -1,25 +1,23 @@
-import { signIn, useSession } from 'next-auth/react';
-import { api } from '../../services/api';
-import { getStripeJs } from '../../services/stripe-js';
-import styles from './styles.module.scss';
+import { signIn, useSession } from "next-auth/react";
+import { api } from "../../services/api";
+import { getStripeJs } from "../../services/stripe-js";
+import styles from "./styles.module.scss";
 
 interface SubscribeButtonProps {
   priceId: string;
 }
 
-export default function SubscribeButton({
-  priceId,
-}: SubscribeButtonProps) {
+export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
   const { data: session } = useSession();
 
   async function handleSubscribe() {
     if (!session) {
-      signIn('github');
+      signIn("github");
       return;
     }
 
     try {
-      const response = await api.post('/subscribe');
+      const response = await api.post("/subscribe");
 
       const { sessionId } = response.data;
 
@@ -27,8 +25,6 @@ export default function SubscribeButton({
 
       await stripe.redirectToCheckout({ sessionId: sessionId });
     } catch (error) {
-      console.log(error);
-
       alert(error.message);
     }
   }
